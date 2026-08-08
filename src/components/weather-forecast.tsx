@@ -50,19 +50,20 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
   const formatTemp = (temp: number) => `${Math.round(temp)}°`;
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>5-Day Forecast</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4">
+        <div className="flex flex-col gap-3 w-full">
           {nextDays.map((day) => (
             <div
               key={day.date}
-              className="grid grid-cols-3 items-center gap-4 rounded-lg border p-4"
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border p-4 w-full transition-colors hover:bg-muted/50"
             >
-              <div>
-                <p className="font-medium">
+            
+              <div className="min-w-[140px]">
+                <p className="font-medium text-base">
                   {format(new Date(day.date * 1000), "EEE, MMM d")}
                 </p>
                 <p className="text-sm text-muted-foreground capitalize">
@@ -70,32 +71,34 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
                 </p>
               </div>
 
+              
+              <div className="flex flex-wrap items-center justify-between sm:justify-end gap-x-8 gap-y-2 text-sm">
+                
+              
+                <div className="flex items-center gap-3 font-medium">
+                  <span className="flex items-center text-blue-500">
+                    <ArrowDown className="mr-0.5 h-4 w-4" />
+                    {formatTemp(day.temp_min)}
+                  </span>
+                  <span className="flex items-center text-red-500">
+                    <ArrowUp className="mr-0.5 h-4 w-4" />
+                    {formatTemp(day.temp_max)}
+                  </span>
+                </div>
 
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm sm:gap-6">
+                <div className="flex items-center gap-6 text-muted-foreground">
+                  <span className="flex items-center gap-1.5 min-w-[65px]">
+                    <Droplets className="h-4 w-4 text-blue-500" />
+                    <span>{day.humidity}%</span>
+                  </span>
+                  <span className="flex items-center gap-1.5 min-w-[80px]">
+                    <Wind className="h-4 w-4 text-blue-500" />
+                    <span>{day.wind}m/s</span>
+                  </span>
+                </div>
 
-               <div className="flex items-center gap-2">
-                <span className="flex items-center text-blue-500">
-                  <ArrowDown className="mr-0.5 h-4 w-4" />
-                  {formatTemp(day.temp_min)}
-                </span>
-                <span className="flex items-center text-red-500">
-                 <ArrowUp className="mr-0.5 h-4 w-4" />
-                  {formatTemp(day.temp_max)}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-4 text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Droplets className="h-4 w-4 text-blue-500" />
-                  <span className="text-sm">{day.humidity}%</span>
-                </span>
-                <span className="flex items-center gap-1">
-                  <Wind className="h-4 w-4 text-blue-500" />
-                  <span className="text-sm">{day.wind}m/s</span>
-                </span>
               </div>
             </div>
-             </div>
           ))}
         </div>
       </CardContent>
