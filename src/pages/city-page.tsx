@@ -8,6 +8,7 @@ import { WeatherDetails } from "../components/weather-details";
 import { WeatherForecast } from "../components/weather-forecast";
 import WeatherSkeleton from "../components/loading-skeleton";
 import { FavoriteButton } from "@/components/favorite-button";
+import { PrayerTimes } from "@/components/prayer-times";
 
 export function CityPage() {
   const [searchParams] = useSearchParams();
@@ -51,9 +52,15 @@ export function CityPage() {
       <div className="grid gap-6">
         <CurrentWeather data={weatherQuery.data} />
         <HourlyTemperature data={forecastQuery.data} />
-        <div className="grid gap-6 md:grid-cols-2 items-start">
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="flex flex-col gap-6 w-full h-full justify-between">
           <WeatherDetails data={weatherQuery.data} />
-          <WeatherForecast data={forecastQuery.data} />
+          <PrayerTimes lat={lat} lon={lon} />
+          </div>
+
+          <div className="w-full h-full">
+            <WeatherForecast data={forecastQuery.data} />
+          </div>
         </div>
       </div>
     </div>
